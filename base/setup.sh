@@ -3,7 +3,7 @@
 docker run -it --rm \
 	-e UID=$UID \
 	-e GID=$GID \
-	-e USERNAME=$USERNAME \
+	-e USERNAME=$USER \
 	-v /home:/home \
 	-v /etc/localtime:/etc/localtime:ro \
 	-v /etc/timezone:/etc/timezone:ro \
