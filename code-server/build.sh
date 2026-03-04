@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t java_docker .
+docker build -t vscode .
