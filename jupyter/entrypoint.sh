@@ -13,7 +13,14 @@ if ! id -u "$USER_NAME" > /dev/null 2>&1; then
 	fi
 fi
 
+if [ -d /content ]; then
+    chown -R "$USER_NAME:$GROUP_ID" /content
+else
+    mkdir -p /content
+    chown -R "$USER_NAME:$GROUP_ID" /content
+fi
+
 export TERM="xterm-256color"
 
-exec "$@"
+exec gosu "$USER_NAME" "$@"
 
