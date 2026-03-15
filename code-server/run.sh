@@ -5,4 +5,4 @@ docker run -it --rm \
   -e "DOCKER_USER=$USER" \
   --env-file .env \
   --hostname vscode \
-  java_docker
+  vscode
