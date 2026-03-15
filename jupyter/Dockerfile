@@ -23,12 +23,10 @@ RUN pip3 install pandas
 
 RUN pip3 install matplotlib
 
-RUN pip3 install torch
-
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
-
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
