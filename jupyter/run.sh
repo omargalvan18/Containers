@@ -7,6 +7,7 @@ docker run -it --rm \
 	-v /etc/localtime:/etc/localtime:ro \
 	-v /etc/timezone:/etc/timezone:ro \
 	-v $(pwd)/projects:/content \
+	-v $(pwd)/.jupyter:/home/jupyter/.jupyter/lab/user-settings/@jupyterlab/apputils-extension/ \
 	-p 80:80 \
 	-p 8888:8888 \
 	--hostname jupyter-pc \
