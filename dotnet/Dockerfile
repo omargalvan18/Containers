@@ -11,15 +11,15 @@ RUN apt-get update && \
 
 ENV PATH=$PATH:/usr/share/dotnet
 
-ENV PATH="$PATH:/home/user/.dotnet/tools"
+RUN useradd net
+
+RUN mkdir -p /home/net/.dotnet/tools
+
+RUN chown -R net:net /home/net/
+
+ENV PATH="$PATH:/home/net/.dotnet/tools"
 
 EXPOSE 8080
 EXPOSE 5232
 
-RUN apt-get install -y gosu
-
-COPY entrypoint.sh /entrypoint.sh
-
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+USER net
