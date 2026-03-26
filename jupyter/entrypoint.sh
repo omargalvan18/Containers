@@ -1,8 +1,6 @@
 #!/bin/sh
 
-USER_ID=${UID:-100}
-GROUP_ID=${GID:-100}
-USER_NAME=${USERNAME:-user}
+USER_NAME=jupyter
 USER_HOME="/home/$USER_NAME"
 
 if ! id -u "$USER_NAME" > /dev/null 2>&1; then
@@ -14,13 +12,20 @@ if ! id -u "$USER_NAME" > /dev/null 2>&1; then
 fi
 
 if [ -d /content ]; then
-    chown -R "$USER_NAME:$GROUP_ID" /content
+    chown -R $USER_NAME:$USER_NAME /content
 else
     mkdir -p /content
-    chown -R "$USER_NAME:$GROUP_ID" /content
+    chown -R $USER_NAME:$USER_NAME /content
+fi
+
+if [ -d "$USER_HOME/.jupyter" ]; then
+    chown -R $USER_NAME:$USER_NAME "$USER_HOME/.jupyter"
+else
+    mkdir -p "$USER_HOME/.jupyter"
+    chown -R $USER_NAME:$USER_NAME "$USER_HOME/.jupyter"t
 fi
 
 export TERM="xterm-256color"
 
-exec gosu "$USER_NAME" "$@"
+exec gosu jupyter "$@"
 
