@@ -5,13 +5,14 @@ RUN apt-get update && \
 	apt-get install -y tzdata && \
 	dpkg-reconfigure -f noninteractive tzdata && \
 	apt-get install -y \
+	texlive-xetex \
+	texlive-fonts-recommended \
+	texlive-plain-generic \
 	python3 \
 	python3-pip \
+	pandoc \
 	gosu \
 	bash \
-	vim \
-	gcc \
-	make \
 	wget \
 	sudo 
 
@@ -24,6 +25,12 @@ RUN pip3 install pandas
 RUN pip3 install matplotlib
 
 COPY entrypoint.sh /entrypoint.sh
+
+RUN useradd jupyter
+
+RUN mkdir /home/jupyter
+
+RUN chown -R jupyter:jupyter /home/jupyter
 
 RUN chmod +x /entrypoint.sh
 
