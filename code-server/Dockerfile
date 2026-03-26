@@ -1,18 +1,12 @@
-# Stage 1: builder
-FROM codercom/code-server:latest AS builder
+FROM codercom/code-server:4.111.0-focal
 
 USER root
 RUN apt-get update && \
+    ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get install -y tzdata && \
+    dpkg-reconfigure -f noninteractive tzdata && \
     apt-get install -y openjdk-17-jdk && \
     apt-get clean
-
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-ENV PATH=$JAVA_HOME/bin:$PATH
-
-# Stage 2: final image
-FROM codercom/code-server:latest
-
-COPY --from=builder /usr/lib/jvm/java-17-openjdk-amd64 /usr/lib/jvm/java-17-openjdk-amd64
 
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH=$JAVA_HOME/bin:$PATH
